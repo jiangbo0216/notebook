@@ -8,6 +8,7 @@ export const paramList: any[] = []
 // 但是并不会直接去创建，而是在装饰器执行的时候进行一次注册
 export function Router(basename = '') {
   return (constrcutor: any) => {
+        console.log('Router', basename, constrcutor);
     routerList.push({
       constrcutor,
       basename
@@ -19,6 +20,7 @@ export function Router(basename = '') {
 // 同样的，我们并不打算去修改他的任何属性，只是为了获取函数的引用
 export function Method(type: any) {
   return (path: any) => (target: any, name: any, descriptor: any) => {
+        console.log('Method', type, path, target, name, descriptor);
     controllerList.push({
       target,
       type,
@@ -32,6 +34,7 @@ export function Method(type: any) {
 // 接下来我们还需要用来格式化参数的装饰器
 export function Parse(type: any) {
   return (target: any, name: any, index: any) => {
+        console.log('Parse', type, target, name, index);
     parseList.push({
       target,
       type,
@@ -44,6 +47,7 @@ export function Parse(type: any) {
 // 以及最后我们要处理的各种参数的获取
 export function Param(position: any) {
   return (key: any) => (target: any, name: any, index: any) => {
+        console.log('Param', position, key, target, name, index);
     paramList.push({
       target,
       key,

@@ -9,6 +9,7 @@ exports.paramList = [];
 // 但是并不会直接去创建，而是在装饰器执行的时候进行一次注册
 function Router(basename = '') {
     return (constrcutor) => {
+        console.log('Router', basename, constrcutor);
         exports.routerList.push({
             constrcutor,
             basename
@@ -20,6 +21,7 @@ exports.Router = Router;
 // 同样的，我们并不打算去修改他的任何属性，只是为了获取函数的引用
 function Method(type) {
     return (path) => (target, name, descriptor) => {
+        console.log('Method', type, path, target, name, descriptor);
         exports.controllerList.push({
             target,
             type,
@@ -33,6 +35,7 @@ exports.Method = Method;
 // 接下来我们还需要用来格式化参数的装饰器
 function Parse(type) {
     return (target, name, index) => {
+        console.log('Parse', type, target, name, index);
         exports.parseList.push({
             target,
             type,
@@ -45,6 +48,7 @@ exports.Parse = Parse;
 // 以及最后我们要处理的各种参数的获取
 function Param(position) {
     return (key) => (target, name, index) => {
+        console.log('Param', position, key, target, name, index);
         exports.paramList.push({
             target,
             key,
